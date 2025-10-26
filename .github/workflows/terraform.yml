@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - "feature/*"   # run plan on feature branches
-      - main          # run apply when merged to main
+      - master          # run apply when merged to master
   pull_request:
     branches:
-      - main          # run plan on PRs targeting main
+      - master          # run plan on PRs targeting master
 
 jobs:
   terraform-plan-feature:
@@ -62,7 +62,7 @@ jobs:
         run: terraform plan -input=false
 
   terraform-plan-pr:
-    name: Terraform Plan (Pull Request to Main)
+    name: Terraform Plan (Pull Request to Master)
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
@@ -119,9 +119,9 @@ jobs:
           path: infra/tfplan
 
   terraform-apply:
-    name: Terraform Apply (Main Branch)
+    name: Terraform Apply (Master Branch)
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
