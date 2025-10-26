@@ -134,24 +134,6 @@ jobs:
 
 ---
 
-## **Troubleshooting Guide**
-
-### **Common Issues and Solutions**
-
-1. **Pod Startup Issues**:
-   **Problem**: Some pods failed to start due to insufficient resources in the node group.
-   **Solution**: I scaled up the **node group** by increasing the instance size and adding more nodes to ensure there were enough resources for the pods.
-
-2. **Ingress 404 Errors**:
-   **Problem**: Ingress was returning 404 errors because the service mappings were incorrect.
-   **Solution**: I reviewed and corrected the **Ingress configuration**, ensuring the backend services were properly mapped to the ALB.
-
-3. **DNS Propagation Issues**:
-   **Problem**: The DNS was not resolving correctly.
-   **Solution**: I verified the **A record** in **Namecheap** and waited for the DNS changes to propagate.
-
----
-
 ## **Security Best Practices**
 
 ### **Network Security**
