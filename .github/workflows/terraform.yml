@@ -42,7 +42,7 @@ jobs:
         uses: terraform-linters/setup-tflint@v4
         with:
           tflint_version: v0.50.3
-          # working-directory: infra
+          working-directory: infra
       
       - name: Execute TFLint
         working-directory: infra
@@ -93,7 +93,7 @@ jobs:
         uses: terraform-linters/setup-tflint@v4
         with:
           tflint_version: v0.50.3
-          # working-directory: infra
+          working-directory: infra
 
       - name: Execute TFLint
         working-directory: infra
@@ -131,7 +131,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -150,16 +150,11 @@ jobs:
         uses: terraform-linters/setup-tflint@v4
         with:
           tflint_version: v0.50.3
-          # working-directory: infra
+          working-directory: infra
       
       - name: Execute TFLint
         working-directory: infra
         run: tflint --init && tflint
-
-      # - name: Run tfsec (Security Scan)
-      #   uses: aquasecurity/tfsec-action@v1.0.3
-      #   with:
-      #     working-directory: infra
 
       - name: Terraform Validate
         working-directory: infra
@@ -167,8 +162,8 @@ jobs:
 
       - name: Terraform Plan (Safety Check)
         working-directory: infra
-        run: terraform plan -input=false
+        run: terraform plan -input=false -out=tfplan
 
       - name: Terraform Apply
         working-directory: infra
-        run: terraform apply -input=false -auto-approve
+        run: terraform apply -input=false tfplan
